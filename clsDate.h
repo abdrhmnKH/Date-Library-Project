@@ -6,12 +6,6 @@
 #include <ctime>
 #include "clsString.h"
 using namespace std;
-class clsDate;
-struct stPeriod
-{
-	clsDate StartDate;
-	clsDate EndDate;
-};
 class clsDate
 { 
 private:
