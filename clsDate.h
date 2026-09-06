@@ -676,71 +676,6 @@ static clsDate CalculateVacationReturnDate(clsDate DateFrom, short VacationDays)
 clsDate CalculateVacationReturnDate(short VacationDays) {
 	return CalculateVacationReturnDate(*this,VacationDays);
 }
-
-static bool IsOverlapPeriods(stPeriod Period1, stPeriod Period2)
-{
-	if (
-		CompareDates(Period2.EndDate, Period1.StartDate) ==
-		enDateCompare::Before
-		||
-		CompareDates(Period2.StartDate, Period1.EndDate) ==
-		enDateCompare::After
-		)
-		return false;
-	else
-		return true;
-}
-static int PeriodLengthInDays(stPeriod Period, bool IncludeEndDate =
-	false)
-{
-	return GetDifferenceInDays(Period.StartDate, Period.EndDate,
-		IncludeEndDate);
-}
-
-
-static bool isDateInPeriod(clsDate Date, stPeriod Period)
-{
-	return !(CompareDates(Date, Period.StartDate) ==
-		enDateCompare::Before
-		||
-		CompareDates(Date, Period.EndDate) ==
-		enDateCompare::After);
-}
-
-
-static int CountOverlapDays(stPeriod Period1, stPeriod Period2)
-{
-	int Period1Length = PeriodLengthInDays(Period1, true);
-	int Period2Length = PeriodLengthInDays(Period2, true);
-	int OverlapDays = 0;
-	if (!IsOverlapPeriods(Period1, Period2))
-		return 0;
-	if (Period1Length < Period2Length)
-	{
-		while (IsDate1BeforeDate2(Period1.StartDate,
-			Period1.EndDate))
-		{
-			if (isDateInPeriod(Period1.StartDate, Period2))
-				OverlapDays++;
-			Period1.StartDate =
-				IncreaseDateByOneDay(Period1.StartDate);
-		}
-	}
-	else
-	{
-		while (IsDate1BeforeDate2(Period2.StartDate,
-			Period2.EndDate))
-		{
-			if (isDateInPeriod(Period2.StartDate, Period1))
-				OverlapDays++;
-			Period2.StartDate =
-				IncreaseDateByOneDay(Period2.StartDate);
-		}
-	}
-	return OverlapDays;
-}
-
-
 static bool IsValidDate(clsDate Date)
 {
 	if (Date._Day < 1 || Date._Day>31)
@@ -837,8 +772,7 @@ clsDate StringToDate(string DateString)
 		_Year = stoi(vDateParts[2]);
 	}
 	void Print() {
-		cout << _Value << endl;
+		cout << DateToString(*this) << endl;
 
 	}
 };
-
