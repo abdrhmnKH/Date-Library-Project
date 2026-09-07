@@ -720,13 +720,6 @@ vector<string> SplitString(string S1, string Delim)
 	}
 	return vString;
 }
-
-
-string DateToString(clsDate Date)
-{
-	return to_string(Date._Day) + "/" + to_string(Date._Month) +
-		"/" + to_string(Date._Year);
-}
 clsDate StringToDate(string DateString)
 {
 	clsDate Date;
